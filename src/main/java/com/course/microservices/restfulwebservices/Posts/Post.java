@@ -1,21 +1,33 @@
 package com.course.microservices.restfulwebservices.Posts;
 
+import com.course.microservices.restfulwebservices.Users.User;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  *
  * @author Mateus Costa
  */
+@Entity
 public class Post {
+    
+    @Id
+    @GeneratedValue
     private Integer id;
-    private String message;
-    private Integer userId;
+    private String description;
+    @ManyToOne(fetch=FetchType.LAZY)
+    private User user;
 
     protected Post() {
     }
     
-    public Post(Integer id, String message, Integer userId) {
+    public Post(Integer id, String description, User user) {
         this.id = id;
-        this.message = message;
-        this.userId = userId;
+        this.description = description;
+        this.user = user;
     }
     
     /**
@@ -33,31 +45,36 @@ public class Post {
     }
 
     /**
-     * @return the message
+     * @return the description
      */
-    public String getMessage() {
-        return message;
+    public String getDescription() {
+        return description;
     }
 
     /**
-     * @param message the message to set
+     * @param description the description to set
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**
-     * @return the userId
+     * @return the user
      */
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
     /**
-     * @param userId the userId to set
+     * @param user the user to set
      */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    @Override
+    public String toString(){
+        return String.format("Post [id=%s, description=%s]", id, description);
     }
     
 }
